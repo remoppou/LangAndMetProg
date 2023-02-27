@@ -9,25 +9,25 @@ def write_to_file(ans_list):
             file.write(format(f"{item}\n"))
 
 
-def solve_func(text):
-    symbols = list(text)
+def solve_func(txt):
+    symbols = list(txt)
     ans_list = []
     ch = ''
-    bool_help = False
+    is_point = False
     for i in range(len(symbols)):
         if '0' <= symbols.__getitem__(i) <= '9':
             ch += symbols[i]
             continue
-        if ch != '' and symbols.__getitem__(i) == '.' or symbols.__getitem__(i) == ',' and not bool_help:
+        if ch != '' and symbols.__getitem__(i) == '.' or symbols.__getitem__(i) == ',' and not is_point:
             if i <= len(symbols) - 1:
                 if '0' <= symbols.__getitem__(i + 1) <= '9':
                     ch += symbols[i]
-                    bool_help = True
+                    is_point = True
                     continue
         if ch != '':
             ans_list.append(ch)
             ch = ''
-            bool_help = False
+            is_point = False
     return ans_list
 
 
