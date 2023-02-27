@@ -4,9 +4,14 @@ def read_from_file():
 
 
 def write_to_file(ans_list):
+    s = len(ans_list) - 1
     with open('output.txt', 'w') as file:
         for item in ans_list:
-            file.write(format(f"{item}\n"))
+            if s != 0:
+                file.write(format(f"{item}\n"))
+            else:
+                file.write(format(f"{item}"))
+            s -= 1
 
 
 def solve_func(txt):
@@ -15,12 +20,13 @@ def solve_func(txt):
     ch = ''
     is_point = False
     for i in range(len(symbols)):
-        if '0' <= symbols.__getitem__(i) <= '9':
+        if '0' <= symbols[i] <= '9':
             ch += symbols[i]
             continue
-        if ch != '' and symbols.__getitem__(i) == '.' or symbols.__getitem__(i) == ',' and not is_point:
+        #Проверка на вещественное число
+        if ch != '' and symbols[i] == '.' or symbols[i] == ',' and not is_point:
             if i <= len(symbols) - 1:
-                if '0' <= symbols.__getitem__(i + 1) <= '9':
+                if '0' <= symbols[i + 1] <= '9':
                     ch += symbols[i]
                     is_point = True
                     continue
