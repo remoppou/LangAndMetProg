@@ -32,33 +32,36 @@ class Intersection:
 def read_lines_from_file():
     with open('input.txt', 'r') as file:
         f = file.readlines()
-        lines = []
+        ls = []
         lst = [[float(n) for n in x.split()] for x in f]
         for i in range(len(lst)):
             line = Line(lst[i][0], lst[i][1], lst[i][2])
-            lines.append(line)
-        return lines
+            ls.append(line)
+        return ls
 
 
-def write_lines_to_file(intersection):
+def write_lines_to_file(inter):
     f = open('output.txt', 'w')
-    f.write(format(f"{intersection.line1.a, intersection.line1.b, intersection.line1.c}"))
+    f.write(format(f"{inter.line1.a, inter.line1.b, inter.line1.c}"))
     f.write('\n')
-    f.write(format(f"{intersection.line2.a, intersection.line2.b, intersection.line2.c}"))
+    f.write(format(f"{inter.line2.a, inter.line2.b, inter.line2.c}"))
     f.close()
 
 
-def solve_method(lines):
+def solve_method(ls):
     ans_ins = []
     way = 0
-    for i in range(len(lines) - 1):
+    for i in range(len(ls) - 1):
         k = i + 1
-        for k in range(k, len(lines)):
-            intersection = Intersection(lines[i], lines[k])
-            nw = intersection.find_way()
-            if nw < way or way == 0:
+        for k in range(k, len(ls)):
+            inter = Intersection(ls[i], ls[k])
+            nw = inter.find_way()
+            if i == 0 and k == 1:
                 way = nw
-                ans_ins = intersection
+                ans_ins = inter
+            if nw < way:
+                way = nw
+                ans_ins = inter
     return ans_ins
 
 
